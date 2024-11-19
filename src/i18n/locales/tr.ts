@@ -2,119 +2,160 @@ export default {
   common: {
     navigation: {
       home: 'Ana Sayfa',
-      blog: 'Blog',
-      test: 'Testi Başlat',
-      results: 'Sonuçlar'
+      test: 'Test Yap',
+      results: 'Sonuçlar',
+      admin: 'Yönetici'
+    },
+    actions: {
+      cancel: 'İptal',
+      save: 'Kaydet',
+      submit: 'Gönder',
+      continue: 'Devam Et',
+      goBack: 'Geri Dön',
+      tryAgain: 'Tekrar Dene',
+      startOver: 'Baştan Başla',
+      maybeLater: 'Belki Daha Sonra',
+      returnHome: 'Ana Sayfaya Dön'
+    },
+    status: {
+      loading: 'Yükleniyor...',
+      error: 'Bir hata oluştu',
+      success: 'Başarılı',
+      resultNotFound: 'Sonuç bulunamadı'
     },
     footer: {
       privacy: 'Gizlilik Politikası',
-      terms: 'Kullanım Koşulları',
-      blog: 'Blog',
+      terms: 'Hizmet Şartları',
       copyright: '© 2024 IQ Awesome. Tüm hakları saklıdır.',
       social: 'Bizi Takip Edin',
-      links: 'Hızlı Bağlantılar'
+      links: 'Hızlı Linkler'
     }
   },
   landing: {
     hero: {
-      title: 'Gerçek Potansiyelinizi Keşfedin',
-      subtitle: 'Bilimsel olarak tasarlanmış IQ testimizi yapın ve bilişsel yetenekleriniz hakkında içgörü kazanın',
-      cta: 'Ücretsiz Testi Başlat'
+      title: 'Gerçek Bilişsel Potansiyelinizi Keşfedin',
+      subtitle: 'Bilimsel olarak tasarlanmış IQ testimizi yaparak bilişsel yetenekleriniz hakkında detaylı içgörüler edinin',
+      cta: 'Ücretsiz IQ Testine Başla',
+      loading: 'Test Başlatılıyor...',
+      error: 'Test başlatılamadı. Lütfen tekrar deneyin.'
     },
     features: {
       scientific: {
-        title: 'Bilimsel Metod',
-        description: 'Kanıtlanmış bilişsel değerlendirme tekniklerine dayalı'
+        title: 'Bilimsel Yöntem',
+        description: 'Kanıtlanmış bilişsel değerlendirme teknikleri ve modern psikometrik standartlara dayalı'
       },
       analysis: {
         title: 'Detaylı Analiz',
-        description: 'Bilişsel güçleriniz hakkında kapsamlı içgörüler edinin'
+        description: 'Bilişsel güçlü yönleriniz ve gelişim alanlarınız hakkında kapsamlı içgörüler elde edin'
       },
       quick: {
         title: 'Hızlı Sonuçlar',
-        description: '30 dakika veya daha kısa sürede tamamlayın'
+        description: 'Testi 30 dakika içinde tamamlayın ve anında detaylı geri bildirim alın'
       }
     },
+    stats: {
+      testDuration: '30 dk',
+      totalUsers: '100K+ kullanıcı',
+      rating: '4.9/5 puan'
+    },
     distribution: {
-      title: 'IQ Puanı Dağılımı',
-      subtitle: 'Dünya çapında test katılımcıları'
+      title: 'IQ Skor Dağılımı',
+      subtitle: 'Test skorlarının küresel dağılımı',
+      ranges: {
+        '70-80': 'Ortalamanın Altında',
+        '80-90': 'Düşük Ortalama',
+        '90-100': 'Ortalama',
+        '100-110': 'Yüksek Ortalama',
+        '110-120': 'Ortalamanın Üstünde',
+        '120-130': 'Üstün'
+      }
     },
     methodology: {
-      title: 'Bilimsel Metodoloji',
-      description: 'Testimiz uzman psikometristler ve bilişsel bilimciler tarafından tasarlanmıştır'
+      title: 'Neden Bizim IQ Testimizi Seçmelisiniz?',
+      subtitle: 'Bilimsel araştırmalara dayalı kapsamlı analiz'
+    },
+    advertisement: {
+      placeholder: 'Reklam Alanı'
     }
   },
   test: {
     progress: 'Soru {{current}} / {{total}}',
     warning: 'Her cevabı dikkatlice düşünmek için zaman ayırın',
+    submit: 'Testi Gönder',
+    submitting: 'Gönderiliyor...',
     categories: {
       logical: 'Mantıksal Akıl Yürütme',
-      verbal: 'Sözel Kavrama',
-      spatial: 'Uzamsal Algı',
+      verbal: 'Sözel Anlama',
+      spatial: 'Uzamsal Tanıma',
       numerical: 'Sayısal Analiz'
     },
     difficulty: {
-      1: 'Temel',
+      1: 'Kolay',
       2: 'Orta',
-      3: 'İleri'
+      3: 'Zor'
     }
   },
   results: {
-    title: 'IQ Puanınız: {{score}}',
-    percentile: 'Test yapanların %{{percent}}\'inden daha yüksek puan aldınız',
-    fullReport: {
-      title: 'Tam IQ Raporunuzu Alın',
-      description: 'Detaylı içgörüler ve kişiselleştirilmiş öneriler edinin',
-      cta: 'Premium Raporu Al (₺199,99)'
-    },
+    title: 'IQ Skorunuz: {{score}}',
+    subtitle: "Önemli bilişsel yetenekler sergilediniz",
+    percentile: 'En iyi %{{percent}} içinde',
+    accuracy: 'Doğruluk: %{{accuracy}}',
+    loading: 'Sonuçlarınız yükleniyor...',
+    error: 'Test sonuçları yüklenemedi',
     categories: {
       logical: 'Mantıksal Akıl Yürütme',
       verbal: 'Sözel Yetenek',
-      spatial: 'Uzamsal Algı',
+      spatial: 'Uzamsal Tanıma',
       numerical: 'Sayısal Analiz'
     },
-    features: {
-      detailed: 'Detaylı Analiz',
-      strengths: 'Bilişsel Güçler',
-      improvements: 'Gelişim Alanları'
+    premium: {
+      title: 'Tam Potansiyelinizi Açığa Çıkarın',
+      subtitle: 'Kapsamlı IQ analiziniz ve kişiselleştirilmiş gelişim planınızı alın',
+      price: '9,99 $',
+      priceNote: 'Tek seferlik ödeme',
+      cta: 'Premium’a Geç',
+      emailPlaceholder: 'email@adresiniz.com',
+      continueToPayment: 'Ödemeye Devam Et',
+      maybeLater: 'Belki Daha Sonra',
+      enterEmail: 'Detaylı IQ analiz raporunuzu almak için e-posta adresinizi girin',
+      features: {
+        analysis: {
+          title: 'Detaylı Analiz',
+          description: 'Bilişsel güçlü yönlerinizin ve gelişim alanlarınızın derinlemesine analizi'
+        },
+        recommendations: {
+          title: 'Kişiselleştirilmiş Tavsiyeler',
+          description: 'Bilişsel yeteneklerinizi geliştirmek için özel stratejiler'
+        },
+        profile: {
+          title: 'Bilişsel Profil',
+          description: 'Tüm alanlarda zihinsel yeteneklerinizin tam değerlendirmesi'
+        },
+        metrics: {
+          title: 'Performans Metrikleri',
+          description: 'Detaylı istatistikler ve küresel yüzdeliklerle karşılaştırmalar'
+        }
+      },
+      benefits: {
+        title: "Neler Alacaksınız?",
+        items: [
+          'Kapsamlı bilişsel güçlü yön analizi',
+          'Kariyer uyumluluğu içgörüleri',
+          'Kişisel gelişim planı',
+          'Eğitim önerileri',
+          'Hafıza geliştirme teknikleri',
+          'Problem çözme stratejileri'
+        ]
+      }
+    },
+    actions: {
+      takeAnother: 'Başka Bir Test Yap',
+      viewDetails: 'Detayları Görüntüle',
+      downloadReport: 'Raporu İndir',
+      shareResults: 'Sonuçları Paylaş'
+    },
+    advertisement: {
+      placeholder: 'Reklam Alanı'
     }
-  },
-  blog: {
-    title: 'IQ İçgörüleri Blog',
-    subtitle: 'Bilişsel bilim ve IQ testleri hakkında en son makaleler',
-    readMore: 'Devamını Oku'
-  },
-  privacy: {
-    title: 'Gizlilik Politikası',
-    dataCollection: {
-      title: 'Veri Toplama',
-      content: 'Sadece doğru test sonuçları sağlamak için gerekli bilgileri topluyoruz'
-    },
-    dataUsage: {
-      title: 'Verilerinizi Nasıl Kullanıyoruz',
-      content: 'Verileriniz sadece test analizi ve hizmetlerimizi geliştirmek için kullanılır'
-    },
-    cookies: {
-      title: 'Çerez Politikası',
-      content: 'Test deneyiminizi geliştirmek için çerezler kullanıyoruz'
-    }
-  },
-  terms: {
-    title: 'Kullanım Koşulları',
-    usage: {
-      title: 'Test Kullanımı',
-      content: 'Bu test sadece bilgilendirme amaçlı tasarlanmıştır'
-    },
-    intellectual: {
-      title: 'Fikri Mülkiyet',
-      content: 'Tüm test içeriği telif hakkı yasası ile korunmaktadır'
-    },
-    liability: {
-      title: 'Sorumluluk Sınırlaması',
-      content: 'Doğruluk için çaba gösteririz ancak belirli sonuçları garanti edemeyiz'
-    }
-  },
-  chart: {
-    percentage: 'Yüzde'
   }
 };

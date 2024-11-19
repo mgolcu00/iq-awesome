@@ -1,34 +1,23 @@
 import React from 'react';
+import { twMerge } from 'tailwind-merge';
 
 interface CardProps {
   children: React.ReactNode;
   className?: string;
+  variant?: 'default' | 'gradient';
 }
 
-const Card = ({ children, className = '' }: CardProps) => {
+export const Card = ({ children, className = '', variant = 'default' }: CardProps) => {
+  const baseStyles = 'rounded-xl shadow-lg overflow-hidden transition-colors duration-200';
+  
+  const variants = {
+    default: 'bg-light-card dark:bg-dark-card border border-light-border dark:border-dark-border',
+    gradient: 'bg-gradient-to-br from-primary-600 to-primary-800 dark:from-primary-800 dark:to-primary-900',
+  };
+
   return (
-    <div className={`bg-white dark:bg-gray-800 rounded-xl shadow-lg overflow-hidden ${className}`}>
+    <div className={twMerge(baseStyles, variants[variant], className)}>
       {children}
     </div>
   );
 };
-
-Card.Header = ({ children, className = '' }: CardProps) => (
-  <div className={`p-6 border-b border-gray-200 dark:border-gray-700 ${className}`}>
-    {children}
-  </div>
-);
-
-Card.Body = ({ children, className = '' }: CardProps) => (
-  <div className={`p-6 ${className}`}>
-    {children}
-  </div>
-);
-
-Card.Footer = ({ children, className = '' }: CardProps) => (
-  <div className={`p-6 border-t border-gray-200 dark:border-gray-700 ${className}`}>
-    {children}
-  </div>
-);
-
-export default Card;

@@ -3,18 +3,25 @@ import { useTranslation } from 'react-i18next';
 import { Brain, Globe } from 'lucide-react';
 import { Link, useLocation } from 'react-router-dom';
 import ThemeToggle from './ThemeToggle';
+import { useTestStore } from '../store/testStore';
 
 const Header = () => {
   const { i18n, t } = useTranslation();
   const location = useLocation();
+  const { language: testLanguage, setLanguage } = useTestStore();
 
   const toggleLanguage = () => {
-    i18n.changeLanguage(i18n.language === 'en' ? 'tr' : 'en');
+    const newLanguage = i18n.language === 'en' ? 'tr' : 'en';
+    i18n.changeLanguage(newLanguage);
+    
+    // Only update test language if we're not in a test
+    if (!location.pathname.includes('/test')) {
+      setLanguage(newLanguage);
+    }
   };
 
   const navigation = [
     { name: t('common.navigation.home'), path: '/' },
-    { name: t('common.navigation.blog'), path: '/blog' },
   ];
 
   return (
@@ -25,17 +32,16 @@ const Header = () => {
             <Brain className="w-8 h-8 text-primary-600 dark:text-primary-400" />
             <span className="text-xl font-bold text-gray-900 dark:text-white">IQ Awesome</span>
           </Link>
-          
+
           <nav className="hidden md:flex items-center space-x-6">
             {navigation.map((item) => (
               <Link
                 key={item.path}
                 to={item.path}
-                className={`text-sm font-medium transition-colors ${
-                  location.pathname === item.path
-                    ? 'text-primary-600 dark:text-primary-400'
-                    : 'text-gray-600 hover:text-gray-900 dark:text-gray-300 dark:hover:text-white'
-                }`}
+                className={`text-sm font-medium transition-colors ${location.pathname === item.path
+                  ? 'text-primary-600 dark:text-primary-400'
+                  : 'text-gray-600 hover:text-gray-900 dark:text-gray-300 dark:hover:text-white'
+                  }`}
               >
                 {item.name}
               </Link>

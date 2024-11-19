@@ -1,28 +1,64 @@
-import create from 'zustand';
+import { create } from 'zustand';
+import { persist } from 'zustand/middleware';
+import { Question } from '../data/types';
 
 interface TestState {
-  currentQuestion: number;
-  answers: Record<number, string>;
-  score: number;
-  setAnswer: (questionId: number, answer: string) => void;
+  sessionId: string | null;
+  testId: string | null;
+  questions: Question[];
+  currentQuestionIndex: number;
+  answers: Record<string, string>;
+  isLoading: boolean;
+  error: string | null;
+  language: "en" | "tr";
+
+  setSession: (sessionId: string) => void;
+  setTest: (testId: string) => void;
+  setQuestions: (questions: Question[]) => void;
+  setAnswer: (questionId: string, answer: string) => void;
   nextQuestion: () => void;
-  calculateScore: () => void;
+  setLoading: (loading: boolean) => void;
+  setError: (error: string | null) => void;
+  setLanguage: (language: "en" | "tr") => void;
+  reset: () => void;
 }
 
-export const useTestStore = create<TestState>((set) => ({
-  currentQuestion: 0,
-  answers: {},
-  score: 0,
-  setAnswer: (questionId, answer) =>
-    set((state) => ({
-      answers: { ...state.answers, [questionId]: answer },
-    })),
-  nextQuestion: () =>
-    set((state) => ({ currentQuestion: state.currentQuestion + 1 })),
-  calculateScore: () =>
-    set((state) => {
-      // Mock scoring logic - replace with actual scoring algorithm
-      const score = Object.keys(state.answers).length * 10;
-      return { score };
+export const useTestStore = create<TestState>()(
+  persist(
+    (set) => ({
+      sessionId: null,
+      testId: null,
+      questions: [],
+      currentQuestionIndex: 0,
+      answers: {},
+      isLoading: false,
+      error: null,
+      language: 'en',
+
+      setSession: (sessionId) => set({ sessionId }),
+      setTest: (testId) => set({ testId }),
+      setQuestions: (questions) => set({ questions }),
+      setAnswer: (questionId, answer) => set((state) => ({
+        answers: { ...state.answers, [questionId]: answer }
+      })),
+      nextQuestion: () => set((state) => ({
+        currentQuestionIndex: Math.min(state.currentQuestionIndex + 1, state.questions.length - 1)
+      })),
+      setLoading: (isLoading) => set({ isLoading }),
+      setError: (error) => set({ error }),
+      setLanguage: (language) => set({ language }),
+      reset: () => set({
+        testId: null,
+        questions: [],
+        currentQuestionIndex: 0,
+        answers: {},
+        isLoading: false,
+        error: null
+      })
     }),
-}));
+    {
+      name: 'test-storage',
+      partialize: (state) => ({ language: state.language })
+    }
+  )
+);
