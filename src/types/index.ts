@@ -1,18 +1,24 @@
 export interface Question {
-  id: number;
+  id: string;
   category: 'logical' | 'verbal' | 'spatial' | 'numerical';
   difficulty: 1 | 2 | 3;
   question: string;
   options: string[];
   correctAnswer: string;
   points: number;
-  timeLimit: number;
-  translations?: {
-    tr: {
-      question: string;
-      options: string[];
-    };
-  };
+  language: 'en' | 'tr';
+  index: number;
+}
+
+export interface SimpleTest {
+  id: string;
+  sessionId: string;
+  questionsAndAnswers: Record<string, string>;
+  totalScore: number;
+  timeSpent: number;
+  accuracy: number;
+  percentile: number;
+  resultId: string;
 }
 
 export interface TestResult {
@@ -25,13 +31,5 @@ export interface TestResult {
 
 export interface UserSession {
   sessionId: string;
-  startTime: number;
-  answers: Record<number, string>;
-  timePerQuestion: Record<number, number>;
-}
-
-export interface LanguageOption {
-  code: string;
-  name: string;
-  flag: string;
+  userMail: string;
 }

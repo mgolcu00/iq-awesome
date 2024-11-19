@@ -1,8 +1,8 @@
 import { db } from '../config/firebase';
 import { collection, addDoc, getDocs, query, where, orderBy, limit } from 'firebase/firestore';
-import { TestResult, Question } from '../types';
+import { TestResult, Question, SimpleTest, UserSession } from '../types';
 
-export const saveTestResult = async (result: TestResult) => {
+export const saveTestResult = async (result: SimpleTest) => {
   try {
     const resultsRef = collection(db, 'results');
     const docRef = await addDoc(resultsRef, {
@@ -16,45 +16,52 @@ export const saveTestResult = async (result: TestResult) => {
   }
 };
 
-export const getTopScores = async (limit = 10) => {
+export const createUserSession = async (email: string): Promise<UserSession> => {
   try {
-    const resultsRef = collection(db, 'results');
-    const q = query(resultsRef, orderBy('score', 'desc'), limit(limit));
-    const snapshot = await getDocs(q);
-    return snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+    const sessionsRef = collection(db, 'sessions');
+    const session: UserSession = {
+      sessionId: Math.random().toString(36).substring(2, 15),
+      userMail: email
+    };
+    await addDoc(sessionsRef, session);
+    return session;
   } catch (error) {
-    console.error('Error fetching top scores:', error);
+    console.error('Error creating user session:', error);
     throw error;
   }
 };
 
-export const getQuestionsByCategory = async (category: string, language: string = 'en') => {
+export const getQuestionsByLanguage = async (language: 'en' | 'tr'): Promise<Question[]> => {
   try {
     const questionsRef = collection(db, 'questions');
     const q = query(
       questionsRef,
-      where('category', '==', category),
-      where('active', '==', true)
+      where('language', '==', language),
+      where('active', '==', true),
+      orderBy('index')
     );
     const snapshot = await getDocs(q);
     return snapshot.docs.map(doc => ({
       id: doc.id,
       ...doc.data()
-    })) as Question[];
+    } as Question));
   } catch (error) {
     console.error('Error fetching questions:', error);
     throw error;
   }
 };
 
-export const getUserStats = async (userId: string) => {
+export const getTestResults = async (sessionId: string): Promise<SimpleTest[]> => {
   try {
     const resultsRef = collection(db, 'results');
-    const q = query(resultsRef, where('userId', '==', userId));
+    const q = query(resultsRef, where('sessionId', '==', sessionId));
     const snapshot = await getDocs(q);
-    return snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+    return snapshot.docs.map(doc => ({
+      id: doc.id,
+      ...doc.data()
+    } as SimpleTest));
   } catch (error) {
-    console.error('Error fetching user stats:', error);
+    console.error('Error fetching test results:', error);
     throw error;
   }
 };

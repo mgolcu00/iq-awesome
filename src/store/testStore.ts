@@ -1,28 +1,40 @@
-import create from 'zustand';
+import { create } from 'zustand';
+import { Question, SimpleTest, UserSession } from '../types';
 
 interface TestState {
   currentQuestion: number;
-  answers: Record<number, string>;
-  score: number;
-  setAnswer: (questionId: number, answer: string) => void;
+  questions: Question[];
+  answers: Record<string, string>;
+  session: UserSession | null;
+  test: SimpleTest | null;
+  setQuestions: (questions: Question[]) => void;
+  setAnswer: (questionId: string, answer: string) => void;
   nextQuestion: () => void;
-  calculateScore: () => void;
+  setSession: (session: UserSession) => void;
+  setTest: (test: SimpleTest) => void;
+  reset: () => void;
 }
 
 export const useTestStore = create<TestState>((set) => ({
   currentQuestion: 0,
+  questions: [],
   answers: {},
-  score: 0,
+  session: null,
+  test: null,
+  setQuestions: (questions) => set({ questions }),
   setAnswer: (questionId, answer) =>
     set((state) => ({
       answers: { ...state.answers, [questionId]: answer },
     })),
   nextQuestion: () =>
     set((state) => ({ currentQuestion: state.currentQuestion + 1 })),
-  calculateScore: () =>
-    set((state) => {
-      // Mock scoring logic - replace with actual scoring algorithm
-      const score = Object.keys(state.answers).length * 10;
-      return { score };
-    }),
+  setSession: (session) => set({ session }),
+  setTest: (test) => set({ test }),
+  reset: () => set({
+    currentQuestion: 0,
+    questions: [],
+    answers: {},
+    session: null,
+    test: null,
+  }),
 }));
