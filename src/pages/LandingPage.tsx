@@ -31,9 +31,11 @@ const LandingPage = () => {
     var currentLang = i18n.language as 'en' | 'tr';
     if (currentLang.toLowerCase() == "tr-TR".toLowerCase()) {
       currentLang = "tr"
+      i18n.changeLanguage("tr");
     }
     if (currentLang.toLowerCase() == "en-US".toLowerCase()) {
       currentLang = "en"
+      i18n.changeLanguage("en");
     }
     console.log(currentLang);
     setLanguage(currentLang);

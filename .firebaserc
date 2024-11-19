@@ -1,5 +1,12 @@
 {
-  "projects": {
-    "default": "iq-awesome-1"
+    "projects": {
+      "default": "iq-awesome-1"
+    },
+    "targets": {
+      "iq-awesome-1": {
+        "hosting": {
+          "production": ["iq-awesome-1"]
+        }
+      }
+    }
   }
-}
