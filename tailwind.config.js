@@ -5,18 +5,45 @@ export default {
   theme: {
     extend: {
       colors: {
+        // Primary brand colors
         primary: {
-          50: '#f0f9ff',
-          100: '#e0f2fe',
-          200: '#bae6fd',
-          300: '#7dd3fc',
-          400: '#38bdf8',
-          500: '#0ea5e9',
-          600: '#0284c7',
-          700: '#0369a1',
-          800: '#075985',
-          900: '#0c4a6e',
+          50: '#f0f7ff',
+          100: '#e0f0ff',
+          200: '#bae0ff',
+          300: '#7cc6ff',
+          400: '#36a6ff',
+          500: '#0088ff',
+          600: '#0066ff',
+          700: '#0055d4',
+          800: '#0044a8',
+          900: '#003380',
         },
+        // Dark mode specific colors
+        dark: {
+          bg: '#0f172a',
+          card: '#1e293b',
+          border: '#334155',
+          text: {
+            primary: '#f8fafc',
+            secondary: '#cbd5e1',
+            muted: '#64748b',
+          }
+        },
+        // Light mode specific colors
+        light: {
+          bg: '#f8fafc',
+          card: '#ffffff',
+          border: '#e2e8f0',
+          text: {
+            primary: '#0f172a',
+            secondary: '#334155',
+            muted: '#64748b',
+          }
+        }
+      },
+      backgroundImage: {
+        'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
+        'gradient-conic': 'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))',
       },
     },
   },

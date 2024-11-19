@@ -1,5 +1,5 @@
 import { db } from '../../config/firebase';
-import { collection, getDocs, addDoc, updateDoc, doc, getDoc, query, where } from 'firebase/firestore';
+import { collection, getDocs, addDoc, updateDoc, doc, getDoc, query, where, Timestamp } from 'firebase/firestore';
 import { Question, SimpleTest, TestResult } from '../types';
 import { getUserSession } from './sessionService';
 
@@ -11,7 +11,7 @@ export const startTest = async (sessionId: string): Promise<SimpleTest> => {
             sessionId,
             questionsAndAnswers: {},
             resultId: "",
-            timestamp: new Date(),
+            timestamp: Timestamp.fromDate(new Date()),
         }
         const added = await addDoc(collection(db, 'tests'), test);
         test.id = added.id;
@@ -25,47 +25,83 @@ export const startTest = async (sessionId: string): Promise<SimpleTest> => {
 
 const calculateScore = async (questionsAndAnswers: Record<string, string>): Promise<TestResult> => {
     try {
+        // Input validation
+        if (!questionsAndAnswers || Object.keys(questionsAndAnswers).length === 0) {
+            throw new Error('No answers provided');
+        }
+
+        // Get questions efficiently using their IDs
         const questionIds = Object.keys(questionsAndAnswers);
         const questionsRef = collection(db, 'questions');
-        const snapshot = await getDocs(questionsRef);
+        const q = query(questionsRef, where('id', 'in', questionIds));
+        const snapshot = await getDocs(q);
+
         const questions = snapshot.docs.map(doc => ({
             id: doc.id,
             ...doc.data()
         } as Question));
-        let score = 0;
-        let categoryScores: Record<string, number> = {};
-        let totalQuestions = 0;
-        let accuracy = 0;
-        let percentile = 0;
 
-        questionIds.forEach(questionId => {
-            const question = questions.find(q => q.id === questionId);
-            if (question) {
-                totalQuestions += 1;
-                if (question.correctAnswer === questionsAndAnswers[questionId]) {
-                    score += question.points;
-                    categoryScores[question.category] = (categoryScores[question.category] || 0) + question.points;
-                }
-            }
+        // Validate that all questions were found
+        if (questions.length !== questionIds.length) {
+            throw new Error('Some questions could not be found');
+        }
+
+        // Initialize scoring variables
+        const scoring = questions.reduce((acc, question) => {
+            const isCorrect = question.correctAnswer === questionsAndAnswers[question.id];
+            const points = isCorrect ? question.points : 0;
+
+            // Update category scores
+            acc.categoryScores[question.category] = (acc.categoryScores[question.category] || 0) + points;
+
+            // Update totals
+            acc.totalPoints += points;
+            acc.maxPossiblePoints += question.points;
+            acc.correctAnswers += isCorrect ? 1 : 0;
+
+            return acc;
+        }, {
+            categoryScores: {} as Record<string, number>,
+            totalPoints: 0,
+            maxPossiblePoints: 0,
+            correctAnswers: 0
         });
 
-        accuracy = score / totalQuestions;
-        percentile = Math.floor((accuracy / 1) * 100);
+        // Calculate final scores
+        const accuracy = scoring.correctAnswers / questions.length;
+        const normalizedScore = (scoring.totalPoints / scoring.maxPossiblePoints) * 100;
+
+        // Calculate percentile (this is a simplified version - consider implementing a more sophisticated percentile calculation)
+        const percentile = Math.min(Math.round(normalizedScore), 100);
 
         const testResult: TestResult = {
             id: "",
-            score,
-            categoryScores,
-            accuracy,
+            score: Math.round(normalizedScore * 10) / 10, // Round to 1 decimal place
+            categoryScores: Object.fromEntries(
+                Object.entries(scoring.categoryScores).map(([category, points]) => [
+                    category,
+                    Math.round((points / scoring.maxPossiblePoints) * 1000) / 10 // Category scores as percentages
+                ])
+            ),
+            accuracy: Math.round(accuracy * 1000) / 1000, // Round to 3 decimal places
             percentile,
-        }
+            metadata: {
+                totalQuestions: questions.length,
+                correctAnswers: scoring.correctAnswers,
+                maxPossiblePoints: scoring.maxPossiblePoints,
+                earnedPoints: scoring.totalPoints
+            }
+        };
 
         return testResult;
     } catch (error) {
         console.error('Error calculating score:', error);
-        throw error;
+        if (error instanceof Error) {
+            throw new Error(`Failed to calculate score: ${error.message}`);
+        }
+        throw new Error('Failed to calculate score');
     }
-}
+};
 
 export const endTest = async (
     testId: string,

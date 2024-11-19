@@ -1,3 +1,5 @@
+import { Timestamp } from "firebase/firestore";
+
 export interface Question {
   id: string;
   category: 'logical' | 'verbal' | 'spatial' | 'numerical';
@@ -15,7 +17,7 @@ export interface SimpleTest {
   sessionId: string;
   questionsAndAnswers: Record<string, string>;
   resultId: string;
-  timestamp: Date;
+  timestamp: Timestamp;
 }
 
 export interface TestResult {
@@ -24,6 +26,7 @@ export interface TestResult {
   categoryScores: Record<string, number>;
   accuracy: number;
   percentile?: number;
+  metadata?:any;
 }
 
 export interface UserSession {

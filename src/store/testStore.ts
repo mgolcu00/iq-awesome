@@ -1,4 +1,5 @@
 import { create } from 'zustand';
+import { persist } from 'zustand/middleware';
 import { Question } from '../data/types';
 
 interface TestState {
@@ -22,35 +23,42 @@ interface TestState {
   reset: () => void;
 }
 
-export const useTestStore = create<TestState>((set) => ({
-  sessionId: null,
-  testId: null,
-  questions: [],
-  currentQuestionIndex: 0,
-  answers: {},
-  isLoading: false,
-  error: null,
-  language: 'en',
+export const useTestStore = create<TestState>()(
+  persist(
+    (set) => ({
+      sessionId: null,
+      testId: null,
+      questions: [],
+      currentQuestionIndex: 0,
+      answers: {},
+      isLoading: false,
+      error: null,
+      language: 'en',
 
-  setSession: (sessionId) => set({ sessionId }),
-  setTest: (testId) => set({ testId }),
-  setQuestions: (questions) => set({ questions }),
-  setAnswer: (questionId, answer) => set((state) => ({
-    answers: { ...state.answers, [questionId]: answer }
-  })),
-  nextQuestion: () => set((state) => ({
-    currentQuestionIndex: Math.min(state.currentQuestionIndex + 1, state.questions.length - 1)
-  })),
-  setLoading: (isLoading) => set({ isLoading }),
-  setError: (error) => set({ error }),
-  setLanguage: (language) => set({ language }),
-  reset: () => set({
-    sessionId: null,
-    testId: null,
-    questions: [],
-    currentQuestionIndex: 0,
-    answers: {},
-    isLoading: false,
-    error: null
-  })
-}));
+      setSession: (sessionId) => set({ sessionId }),
+      setTest: (testId) => set({ testId }),
+      setQuestions: (questions) => set({ questions }),
+      setAnswer: (questionId, answer) => set((state) => ({
+        answers: { ...state.answers, [questionId]: answer }
+      })),
+      nextQuestion: () => set((state) => ({
+        currentQuestionIndex: Math.min(state.currentQuestionIndex + 1, state.questions.length - 1)
+      })),
+      setLoading: (isLoading) => set({ isLoading }),
+      setError: (error) => set({ error }),
+      setLanguage: (language) => set({ language }),
+      reset: () => set({
+        testId: null,
+        questions: [],
+        currentQuestionIndex: 0,
+        answers: {},
+        isLoading: false,
+        error: null
+      })
+    }),
+    {
+      name: 'test-storage',
+      partialize: (state) => ({ language: state.language })
+    }
+  )
+);

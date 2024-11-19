@@ -2,14 +2,30 @@ export default {
   common: {
     navigation: {
       home: 'Home',
-      blog: 'Blog',
       test: 'Take Test',
-      results: 'Results'
+      results: 'Results',
+      admin: 'Admin'
+    },
+    actions: {
+      cancel: 'Cancel',
+      save: 'Save',
+      submit: 'Submit',
+      continue: 'Continue',
+      goBack: 'Go Back',
+      tryAgain: 'Try Again',
+      startOver: 'Start Over',
+      maybeLater: 'Maybe Later',
+      returnHome: 'Return to Home'
+    },
+    status: {
+      loading: 'Loading...',
+      error: 'An error occurred',
+      success: 'Success',
+      resultNotFound: 'Result not found'
     },
     footer: {
       privacy: 'Privacy Policy',
       terms: 'Terms of Service',
-      blog: 'Blog',
       copyright: '© 2024 IQ Awesome. All rights reserved.',
       social: 'Follow Us',
       links: 'Quick Links'
@@ -17,36 +33,56 @@ export default {
   },
   landing: {
     hero: {
-      title: 'Discover Your True Potential',
-      subtitle: 'Take our scientifically designed IQ test and unlock insights about your cognitive abilities',
-      cta: 'Start Free Test'
+      title: 'Discover Your True Cognitive Potential',
+      subtitle: 'Take our scientifically designed IQ test and unlock detailed insights about your cognitive abilities',
+      cta: 'Start Free IQ Test',
+      loading: 'Starting Test...',
+      error: 'Failed to start test. Please try again.'
     },
     features: {
       scientific: {
         title: 'Scientific Method',
-        description: 'Based on proven cognitive assessment techniques'
+        description: 'Based on proven cognitive assessment techniques and modern psychometric standards'
       },
       analysis: {
         title: 'Detailed Analysis',
-        description: 'Get comprehensive insights into your cognitive strengths'
+        description: 'Get comprehensive insights into your cognitive strengths and areas for improvement'
       },
       quick: {
         title: 'Quick Results',
-        description: 'Complete the test in 30 minutes or less'
+        description: 'Complete the test in 30 minutes and get instant detailed feedback'
       }
+    },
+    stats: {
+      testDuration: '30 min',
+      totalUsers: '100K+ users',
+      rating: '4.9/5 rating'
     },
     distribution: {
       title: 'IQ Score Distribution',
-      subtitle: 'Test takers worldwide'
+      subtitle: 'Global distribution of test scores',
+      ranges: {
+        '70-80': 'Below Average',
+        '80-90': 'Low Average',
+        '90-100': 'Average',
+        '100-110': 'High Average',
+        '110-120': 'Above Average',
+        '120-130': 'Superior'
+      }
     },
     methodology: {
-      title: 'Scientific Methodology',
-      description: 'Our test is designed by expert psychometricians and cognitive scientists'
+      title: 'Why Choose Our IQ Test?',
+      subtitle: 'Comprehensive analysis backed by scientific research'
+    },
+    advertisement: {
+      placeholder: 'Advertisement Space'
     }
   },
   test: {
     progress: 'Question {{current}} of {{total}}',
     warning: 'Take your time to consider each answer carefully',
+    submit: 'Submit Test',
+    submitting: 'Submitting...',
     categories: {
       logical: 'Logical Reasoning',
       verbal: 'Verbal Comprehension',
@@ -54,67 +90,72 @@ export default {
       numerical: 'Numerical Analysis'
     },
     difficulty: {
-      1: 'Basic',
-      2: 'Intermediate',
-      3: 'Advanced'
+      1: 'Easy',
+      2: 'Medium',
+      3: 'Hard'
     }
   },
   results: {
     title: 'Your IQ Score: {{score}}',
-    percentile: 'You scored higher than {{percent}}% of test takers',
-    fullReport: {
-      title: 'Get Your Full IQ Report',
-      description: 'Unlock detailed insights and personalized recommendations',
-      cta: 'Get Premium Report ($9.99)'
-    },
+    subtitle: "You've demonstrated significant cognitive abilities",
+    percentile: 'Top {{percent}}% of test takers',
+    accuracy: 'Accuracy: {{accuracy}}%',
+    loading: 'Loading your results...',
+    error: 'Failed to load test results',
     categories: {
       logical: 'Logical Reasoning',
       verbal: 'Verbal Ability',
       spatial: 'Spatial Recognition',
       numerical: 'Numerical Analysis'
     },
-    features: {
-      detailed: 'Detailed Analysis',
-      strengths: 'Cognitive Strengths',
-      improvements: 'Areas for Improvement'
+    premium: {
+      title: 'Unlock Your Full Potential',
+      subtitle: 'Get your comprehensive IQ analysis and personalized development plan',
+      price: '$9.99',
+      priceNote: 'One-time payment',
+      cta: 'Upgrade to Premium',
+      emailPlaceholder: 'your@email.com',
+      continueToPayment: 'Continue to Payment',
+      maybeLater: 'Maybe Later',
+      enterEmail: 'Enter your email to receive your detailed IQ analysis report',
+      features: {
+        analysis: {
+          title: 'Detailed Analysis',
+          description: 'In-depth breakdown of your cognitive strengths and areas for improvement'
+        },
+        recommendations: {
+          title: 'Personalized Recommendations',
+          description: 'Custom strategies to enhance your cognitive abilities'
+        },
+        profile: {
+          title: 'Cognitive Profile',
+          description: 'Complete assessment of your mental capabilities across all domains'
+        },
+        metrics: {
+          title: 'Performance Metrics',
+          description: 'Detailed statistics and comparisons with global percentiles'
+        }
+      },
+      benefits: {
+        title: "What You'll Get",
+        items: [
+          'Comprehensive cognitive strength analysis',
+          'Career compatibility insights',
+          'Personal development roadmap',
+          'Educational recommendations',
+          'Memory enhancement techniques',
+          'Problem-solving strategies'
+        ]
+      }
+    },
+    actions: {
+      takeAnother: 'Take Another Test',
+      viewDetails: 'View Details',
+      downloadReport: 'Download Report',
+      shareResults: 'Share Results'
+    },
+    advertisement: {
+      placeholder: 'Advertisement Space'
     }
-  },
-  blog: {
-    title: 'IQ Insights Blog',
-    subtitle: 'Latest articles about cognitive science and IQ testing',
-    readMore: 'Read More'
-  },
-  privacy: {
-    title: 'Privacy Policy',
-    dataCollection: {
-      title: 'Data Collection',
-      content: 'We collect only essential information to provide you with accurate test results'
-    },
-    dataUsage: {
-      title: 'How We Use Your Data',
-      content: 'Your data is used solely for test analysis and improving our services'
-    },
-    cookies: {
-      title: 'Cookie Policy',
-      content: 'We use cookies to enhance your testing experience'
-    }
-  },
-  terms: {
-    title: 'Terms of Service',
-    usage: {
-      title: 'Test Usage',
-      content: 'This test is designed for informational purposes only'
-    },
-    intellectual: {
-      title: 'Intellectual Property',
-      content: 'All test content is protected by copyright law'
-    },
-    liability: {
-      title: 'Limitation of Liability',
-      content: 'We strive for accuracy but cannot guarantee specific outcomes'
-    }
-  },
-  chart: {
-    percentage: 'Percentage'
   }
 };

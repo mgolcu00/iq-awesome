@@ -8,16 +8,20 @@ import { useTestStore } from '../store/testStore';
 const Header = () => {
   const { i18n, t } = useTranslation();
   const location = useLocation();
+  const { language: testLanguage, setLanguage } = useTestStore();
 
   const toggleLanguage = () => {
     const newLanguage = i18n.language === 'en' ? 'tr' : 'en';
     i18n.changeLanguage(newLanguage);
-    useTestStore.getState().setLanguage(newLanguage);
+    
+    // Only update test language if we're not in a test
+    if (!location.pathname.includes('/test')) {
+      setLanguage(newLanguage);
+    }
   };
 
   const navigation = [
     { name: t('common.navigation.home'), path: '/' },
-    { name: t('common.navigation.blog'), path: '/blog' },
   ];
 
   return (
