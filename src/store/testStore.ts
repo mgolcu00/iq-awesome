@@ -1,5 +1,5 @@
 import { create } from 'zustand';
-import { Question, SimpleTest, UserSession } from '../types';
+import { Question, SimpleTest, UserSession } from '../data/types';
 
 interface TestState {
   currentQuestion: number;

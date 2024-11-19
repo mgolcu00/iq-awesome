@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Shield } from 'lucide-react';
-import { loginAdmin } from '../../services/auth';
+import { loginAdmin } from '../../data/services/auth';
 import { AuthError } from 'firebase/auth';
 
 const LoginPage = () => {

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { BarChart2, Users, FileQuestion, Clock } from 'lucide-react';
 import { Card } from '../../components/ui/Card';
 import { LineChart, Line, XAxis, YAxis, Tooltip, ResponsiveContainer } from 'recharts';
-import { getTestAnalytics, getQuestions } from '../../services/firebase';
+import { getTestAnalytics, getQuestions } from '../../data/services/firebase';
 
 const Dashboard = () => {
   const [analytics, setAnalytics] = useState({

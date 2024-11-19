@@ -1,6 +1,6 @@
-import { auth } from '../config/firebase';
+import { auth } from '../../config/firebase';
 import { signInWithEmailAndPassword, signOut } from 'firebase/auth';
-import { useAdminStore } from '../store/adminStore';
+import { useAdminStore } from '../../store/adminStore';
 
 export const loginAdmin = async (email: string, password: string) => {
   try {

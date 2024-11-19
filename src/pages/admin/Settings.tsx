@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Card } from '../../components/ui/Card';
 import { Save } from 'lucide-react';
-import { getAdminSettings, updateAdminSettings } from '../../services/firebase';
+import { getAdminSettings, updateAdminSettings } from '../../data/services/firebase';
 
 const Settings = () => {
   const [settings, setSettings] = useState({
