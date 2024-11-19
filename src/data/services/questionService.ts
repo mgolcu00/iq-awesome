@@ -1,8 +1,6 @@
 import { db } from '../../config/firebase';
 import { collection, getDocs, addDoc, updateDoc, deleteDoc, doc, query, where, orderBy } from 'firebase/firestore';
-import { Question, SimpleTest, UserSession, TestResult } from '../types';
-
-// Questions Service
+import { Question } from '../types';
 
 export const getQuestions = async (): Promise<Question[]> => {
     try {
@@ -21,7 +19,6 @@ export const getQuestions = async (): Promise<Question[]> => {
         throw error;
     }
 };
-
 
 export const getQuestionsByLanguage = async (language: 'en' | 'tr'): Promise<Question[]> => {
     try {
@@ -42,7 +39,6 @@ export const getQuestionsByLanguage = async (language: 'en' | 'tr'): Promise<Que
     }
 };
 
-
 export const addQuestion = async (question: Omit<Question, 'id'>): Promise<string> => {
     try {
         const questionsRef = collection(db, 'questions');
@@ -56,7 +52,6 @@ export const addQuestion = async (question: Omit<Question, 'id'>): Promise<strin
     }
 };
 
-
 export const updateQuestion = async (id: string, question: Partial<Question>): Promise<void> => {
     try {
         const questionRef = doc(db, 'questions', id);
@@ -67,7 +62,6 @@ export const updateQuestion = async (id: string, question: Partial<Question>): P
     }
 };
 
-
 export const deleteQuestion = async (id: string): Promise<void> => {
     try {
         await deleteDoc(doc(db, 'questions', id));
@@ -76,4 +70,3 @@ export const deleteQuestion = async (id: string): Promise<void> => {
         throw error;
     }
 };
-

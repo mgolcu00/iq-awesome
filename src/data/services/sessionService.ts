@@ -1,14 +1,9 @@
 import { db } from '../../config/firebase';
-import { collection, getDocs, addDoc, updateDoc, deleteDoc, doc, query, where, orderBy, getDoc } from 'firebase/firestore';
-import { Question, SimpleTest, UserSession, TestResult } from '../types';
-import { v4 as uuidv4 } from 'uuid';
-
-// Sessions Service
-
+import { collection, getDocs, addDoc, updateDoc, doc, query, getDoc } from 'firebase/firestore';
+import { UserSession } from '../types';
 
 export const createUserSession = async (language: "en" | "tr" = "en"): Promise<UserSession> => {
     try {
-        // get uniqe browser session id 
         const sessionsRef = collection(db, 'sessions');
         const session: UserSession = {
             language,
@@ -25,7 +20,6 @@ export const createUserSession = async (language: "en" | "tr" = "en"): Promise<U
     }
 };
 
-
 export const getUserSession = async (sessionId: string): Promise<UserSession> => {
     try {
         const sessionRef = doc(db, 'sessions', sessionId);
@@ -38,7 +32,6 @@ export const getUserSession = async (sessionId: string): Promise<UserSession> =>
     }
 };
 
-
 export const updateUserSession = async (sessionId: string, session: Partial<UserSession>): Promise<void> => {
     try {
         const sessionRef = doc(db, 'sessions', sessionId);
@@ -48,7 +41,6 @@ export const updateUserSession = async (sessionId: string, session: Partial<User
         throw error;
     }
 };
-
 
 export const getUserSessions = async (): Promise<UserSession[]> => {
     try {
@@ -62,5 +54,4 @@ export const getUserSessions = async (): Promise<UserSession[]> => {
         console.error('Error fetching user sessions:', error);
         throw error;
     }
-}
-
+};

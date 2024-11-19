@@ -1,42 +1,55 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { Brain, Trophy, Clock, ChevronRight, Star, Users, BarChart2, BookOpen } from 'lucide-react';
-import Chart from '../components/Chart';
+import { Brain, ArrowRight } from 'lucide-react';
+import { useTestStore } from '../store/testStore';
+import * as sessionService from '../data/services/sessionService';
+import * as testService from '../data/services/testService';
+import * as  questionService from '../data/services/questionService';
 
 const LandingPage = () => {
-  const navigate = useNavigate();
   const { t } = useTranslation();
+  const navigate = useNavigate();
+  const {
+    setSession,
+    setTest,
+    setQuestions,
+    setLoading,
+    setError,
+    isLoading,
+    error,
+    language
+  } = useTestStore();
 
-  const distributionData = [
-    { range: '80-90', percentage: 15 },
-    { range: '90-100', percentage: 25 },
-    { range: '100-110', percentage: 35 },
-    { range: '110-120', percentage: 15 },
-    { range: '120+', percentage: 10 },
-  ];
+  const handleStartTest = async () => {
+    try {
+      setLoading(true);
+      setError(null);
 
-  const features = [
-    {
-      icon: <Trophy className="w-12 h-12 text-yellow-400" />,
-      title: t('landing.features.scientific.title'),
-      description: t('landing.features.scientific.description')
-    },
-    {
-      icon: <BarChart2 className="w-12 h-12 text-blue-400" />,
-      title: t('landing.features.analysis.title'),
-      description: t('landing.features.analysis.description')
-    },
-    {
-      icon: <Clock className="w-12 h-12 text-green-400" />,
-      title: t('landing.features.quick.title'),
-      description: t('landing.features.quick.description')
+      // Create new session
+      const session = await sessionService.createUserSession();
+      setSession(session.id);
+
+      // Start new test
+      const test = await testService.startTest(session.id);
+      setTest(test.id);
+
+      // Load questions
+      const questions = await questionService.getQuestionsByLanguage(language);
+      setQuestions(questions);
+
+      // Navigate to test page
+      navigate('/test');
+    } catch (err) {
+      console.error('Failed to start test:', err);
+      setError('Failed to start test. Please try again.');
+    } finally {
+      setLoading(false);
     }
-  ];
+  };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-primary-500 to-purple-600 dark:from-primary-900 dark:to-purple-900">
-      {/* Hero Section */}
+    <div className="min-h-screen bg-gradient-to-br from-indigo-500 to-purple-600">
       <div className="container mx-auto px-4 py-20">
         <div className="text-center text-white mb-16">
           <div className="flex justify-center mb-8">
@@ -44,68 +57,59 @@ const LandingPage = () => {
           </div>
           <h1 className="text-6xl font-bold mb-6">{t('landing.hero.title')}</h1>
           <p className="text-2xl opacity-90 mb-12">{t('landing.hero.subtitle')}</p>
+
+          {error && (
+            <div className="max-w-md mx-auto mb-6 bg-red-500 bg-opacity-10 border border-red-300 text-red-100 px-4 py-3 rounded-lg">
+              {error}
+            </div>
+          )}
+
           <button
-            onClick={() => navigate('/test')}
-            className="bg-white text-primary-600 dark:bg-primary-800 dark:text-white px-8 py-4 rounded-full font-bold text-lg hover:bg-opacity-90 transition-all flex items-center mx-auto"
+            onClick={handleStartTest}
+            disabled={isLoading}
+            className="inline-flex items-center px-8 py-4 bg-white text-indigo-600 rounded-full font-bold text-lg hover:bg-opacity-90 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
           >
-            {t('landing.hero.cta')} <ChevronRight className="ml-2" />
+            {isLoading ? (
+              <>
+                <svg className="animate-spin -ml-1 mr-3 h-5 w-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                  <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                  <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                </svg>
+                Starting Test...
+              </>
+            ) : (
+              <>
+                {t('landing.hero.cta')}
+                <ArrowRight className="ml-2 w-5 h-5" />
+              </>
+            )}
           </button>
         </div>
 
         {/* Features Grid */}
-        <div className="grid md:grid-cols-3 gap-8 mb-20">
-          {features.map((feature, index) => (
+        <div className="grid md:grid-cols-3 gap-8">
+          {[
+            {
+              title: t('landing.features.scientific.title'),
+              description: t('landing.features.scientific.description')
+            },
+            {
+              title: t('landing.features.analysis.title'),
+              description: t('landing.features.analysis.description')
+            },
+            {
+              title: t('landing.features.quick.title'),
+              description: t('landing.features.quick.description')
+            }
+          ].map((feature, index) => (
             <div
               key={index}
               className="bg-white/10 backdrop-blur-sm rounded-xl p-8 text-white text-center transform hover:scale-105 transition-all"
             >
-              <div className="flex justify-center mb-6">{feature.icon}</div>
               <h3 className="text-xl font-semibold mb-4">{feature.title}</h3>
               <p className="opacity-80">{feature.description}</p>
             </div>
           ))}
-        </div>
-
-        {/* Statistics Section */}
-        <div className="bg-white/10 backdrop-blur-sm rounded-xl p-8 mb-20">
-          <h2 className="text-2xl font-bold text-white mb-4 text-center">
-            {t('landing.distribution.title')}
-          </h2>
-          <p className="text-white/80 text-center mb-8">
-            {t('landing.distribution.subtitle')}
-          </p>
-          <Chart data={distributionData} />
-        </div>
-
-        {/* Scientific Methodology */}
-        <div className="bg-white/10 backdrop-blur-sm rounded-xl p-8 text-white text-center mb-20">
-          <BookOpen className="w-16 h-16 mx-auto mb-6" />
-          <h2 className="text-2xl font-bold mb-4">{t('landing.methodology.title')}</h2>
-          <p className="max-w-2xl mx-auto opacity-90">
-            {t('landing.methodology.description')}
-          </p>
-        </div>
-
-        {/* Social Proof */}
-        <div className="text-center text-white mb-20">
-          <div className="flex items-center justify-center mb-6">
-            <Star className="w-8 h-8 text-yellow-400" />
-            <Star className="w-8 h-8 text-yellow-400" />
-            <Star className="w-8 h-8 text-yellow-400" />
-            <Star className="w-8 h-8 text-yellow-400" />
-            <Star className="w-8 h-8 text-yellow-400" />
-          </div>
-          <div className="flex items-center justify-center space-x-4">
-            <Users className="w-6 h-6" />
-            <span>100,000+ {t('landing.distribution.subtitle')}</span>
-          </div>
-        </div>
-      </div>
-
-      {/* Ad Space */}
-      <div className="container mx-auto px-4 pb-12">
-        <div className="bg-white/5 backdrop-blur-sm rounded-xl p-4 text-center text-white/50">
-          Advertisement Space
         </div>
       </div>
     </div>

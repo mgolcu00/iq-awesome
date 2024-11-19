@@ -1,55 +1,67 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Card } from '../../components/ui/Card';
-import { Mail, Calendar, BarChart } from 'lucide-react';
+import { Mail, Calendar, BarChart, ChevronDown, ChevronRight } from 'lucide-react';
+import * as adminService from '../../data/services/adminService';
+import { format, formatDistanceToNow } from 'date-fns';
+import { Question, SimpleTest, TestResult, UserSession } from '../../data/types'
 
-const mockUsers = [
-  {
-    email: 'user1@example.com',
-    lastTest: '2024-03-15',
-    testsCompleted: 5,
-    averageScore: 85
-  },
-  {
-    email: 'user2@example.com',
-    lastTest: '2024-03-14',
-    testsCompleted: 3,
-    averageScore: 92
-  },
-  // Add more mock users as needed
-];
+
+
 
 const Users = () => {
+  const [sessions, setSessions] = useState<adminService.SessionWithTests[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    loadSessions();
+  }, []);
+
+  const loadSessions = async () => {
+    try {
+      setLoading(true);
+      const sessionsData = await adminService.getSessions();
+      const sessionsWithExpanded = sessionsData.map(session => ({
+        ...session,
+        isExpanded: false,
+        tests: []
+      }));
+      setSessions(sessionsWithExpanded);
+    } catch (err) {
+      setError('Failed to load sessions');
+      console.error(err);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+
+  if (loading) {
+    return (
+      <div className="flex justify-center items-center h-64">
+        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-indigo-600"></div>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="bg-red-50 text-red-500 p-4 rounded-lg">
+        {error}
+      </div>
+    );
+  }
+
   return (
     <div className="space-y-6">
-      <h1 className="text-2xl font-bold text-gray-900 dark:text-white">User Management</h1>
+      <h1 className="text-2xl font-bold text-gray-900 dark:text-white">User Sessions</h1>
 
       <div className="grid gap-6">
-        {mockUsers.map((user, index) => (
-          <Card key={index} className="p-6">
-            <div className="flex items-center justify-between">
-              <div className="space-y-3">
-                <div className="flex items-center space-x-2">
-                  <Mail className="w-5 h-5 text-gray-500" />
-                  <span className="text-gray-900 dark:text-white font-medium">{user.email}</span>
-                </div>
-                <div className="flex items-center space-x-4 text-sm text-gray-600 dark:text-gray-400">
-                  <div className="flex items-center space-x-1">
-                    <Calendar className="w-4 h-4" />
-                    <span>Last test: {user.lastTest}</span>
-                  </div>
-                  <div className="flex items-center space-x-1">
-                    <BarChart className="w-4 h-4" />
-                    <span>Tests completed: {user.testsCompleted}</span>
-                  </div>
-                </div>
-              </div>
-              <div className="text-right">
-                <div className="text-2xl font-semibold text-indigo-600 dark:text-indigo-400">
-                  {user.averageScore}%
-                </div>
-                <div className="text-sm text-gray-600 dark:text-gray-400">Average Score</div>
-              </div>
-            </div>
+        {sessions.map((session) => (
+          <Card key={session.id} className="p-6">
+            {/* implement sessions here  */}
+           <div></div>
+
           </Card>
         ))}
       </div>

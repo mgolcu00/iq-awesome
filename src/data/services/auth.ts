@@ -5,6 +5,7 @@ import { useAdminStore } from '../../store/adminStore';
 export const loginAdmin = async (email: string, password: string) => {
   try {
     const userCredential = await signInWithEmailAndPassword(auth, email, password);
+    useAdminStore.getState().setAuthenticated(true, userCredential.user.email);
     return userCredential.user;
   } catch (error) {
     console.error('Login error:', error);

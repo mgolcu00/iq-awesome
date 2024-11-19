@@ -2,8 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { Plus, Pencil, Trash2 } from 'lucide-react';
 import { Card } from '../../components/ui/Card';
 import QuestionForm from '../../components/admin/QuestionForm';
-import { Question } from '../../data/types';
-import { getQuestions, addQuestion, updateQuestion, deleteQuestion } from '../../data/services/firebase';
+import { Question } from '../../types';
+import { getQuestions, addQuestion, updateQuestion, deleteQuestion } from '../../data/services/questionService';
 
 const Questions = () => {
   const [questions, setQuestions] = useState<Question[]>([]);

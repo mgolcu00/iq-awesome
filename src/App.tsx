@@ -6,13 +6,12 @@ import LoginPage from './pages/admin/LoginPage';
 import LandingPage from './pages/LandingPage';
 import TestPage from './pages/TestPage';
 import ResultPage from './pages/ResultPage';
-import PrivacyPolicy from './pages/PrivacyPolicy';
-import TermsOfService from './pages/TermsOfService';
+import PrivacyPolicy from './pages/common/PrivacyPolicy';
+import TermsOfService from './pages/common/TermsOfService';
 import Blog from './pages/Blog';
 import AdminDashboard from './pages/admin/Dashboard';
 import AdminQuestions from './pages/admin/Questions';
 import AdminUsers from './pages/admin/Users';
-import AdminSettings from './pages/admin/Settings';
 import './i18n';
 
 function App() {
@@ -31,7 +30,6 @@ function App() {
           <Route path="dashboard" element={<AdminDashboard />} />
           <Route path="questions" element={<AdminQuestions />} />
           <Route path="users" element={<AdminUsers />} />
-          <Route path="settings" element={<AdminSettings />} />
         </Route>
       
       </Routes>

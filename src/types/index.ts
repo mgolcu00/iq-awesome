@@ -14,20 +14,22 @@ export interface SimpleTest {
   id: string;
   sessionId: string;
   questionsAndAnswers: Record<string, string>;
+  totalScore: number;
+  timeSpent: number;
+  accuracy: number;
+  percentile: number;
   resultId: string;
-  timestamp: Date;
 }
 
 export interface TestResult {
-  id: string;
   score: number;
   categoryScores: Record<string, number>;
+  timeSpent: number;
   accuracy: number;
   percentile?: number;
 }
 
 export interface UserSession {
-  id: string;
-  language: 'en' | 'tr';
-  mail: string;
+  sessionId: string;
+  userMail: string;
 }

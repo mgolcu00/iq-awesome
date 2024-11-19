@@ -2,14 +2,13 @@ import React, { useEffect, useState } from 'react';
 import { BarChart2, Users, FileQuestion, Clock } from 'lucide-react';
 import { Card } from '../../components/ui/Card';
 import { LineChart, Line, XAxis, YAxis, Tooltip, ResponsiveContainer } from 'recharts';
-import { getTestAnalytics, getQuestions } from '../../data/services/firebase';
+import { getAnalytics } from '../../data/services/adminService';
 
 const Dashboard = () => {
   const [analytics, setAnalytics] = useState({
-    totalTests: 0,
-    averageScore: 0,
-    totalUsers: 0,
-    activeQuestions: 0
+    questions: 0,
+    sessions: 0,
+    tests: 0,
   });
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -18,15 +17,9 @@ const Dashboard = () => {
     const loadAnalytics = async () => {
       try {
         setLoading(true);
-        const [analyticsData, questions] = await Promise.all([
-          getTestAnalytics(),
-          getQuestions('en')
-        ]);
-        
-        setAnalytics({
-          ...analyticsData,
-          activeQuestions: questions.length
-        });
+        const analyticsData = await getAnalytics();
+
+        setAnalytics(analyticsData);
       } catch (err) {
         setError('Failed to load analytics');
         console.error(err);
@@ -39,10 +32,9 @@ const Dashboard = () => {
   }, []);
 
   const stats = [
-    { icon: <Users className="w-8 h-8" />, label: 'Total Users', value: analytics.totalUsers.toString() },
-    { icon: <FileQuestion className="w-8 h-8" />, label: 'Active Questions', value: analytics.activeQuestions.toString() },
-    { icon: <BarChart2 className="w-8 h-8" />, label: 'Tests Taken', value: analytics.totalTests.toString() },
-    { icon: <Clock className="w-8 h-8" />, label: 'Avg. Score', value: `${Math.round(analytics.averageScore)}%` },
+    { icon: <Users className="w-8 h-8" />, label: 'Total Sessions', value: analytics.sessions.toString() },
+    { icon: <FileQuestion className="w-8 h-8" />, label: 'Active Questions', value: analytics.questions.toString() },
+    { icon: <BarChart2 className="w-8 h-8" />, label: 'Tests Taken', value: analytics.tests.toString() },
   ];
 
   if (loading) {

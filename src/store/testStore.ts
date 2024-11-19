@@ -1,40 +1,56 @@
 import { create } from 'zustand';
-import { Question, SimpleTest, UserSession } from '../data/types';
+import { Question } from '../data/types';
 
 interface TestState {
-  currentQuestion: number;
+  sessionId: string | null;
+  testId: string | null;
   questions: Question[];
+  currentQuestionIndex: number;
   answers: Record<string, string>;
-  session: UserSession | null;
-  test: SimpleTest | null;
+  isLoading: boolean;
+  error: string | null;
+  language: "en" | "tr";
+
+  setSession: (sessionId: string) => void;
+  setTest: (testId: string) => void;
   setQuestions: (questions: Question[]) => void;
   setAnswer: (questionId: string, answer: string) => void;
   nextQuestion: () => void;
-  setSession: (session: UserSession) => void;
-  setTest: (test: SimpleTest) => void;
+  setLoading: (loading: boolean) => void;
+  setError: (error: string | null) => void;
+  setLanguage: (language: "en" | "tr") => void;
   reset: () => void;
 }
 
 export const useTestStore = create<TestState>((set) => ({
-  currentQuestion: 0,
+  sessionId: null,
+  testId: null,
   questions: [],
+  currentQuestionIndex: 0,
   answers: {},
-  session: null,
-  test: null,
+  isLoading: false,
+  error: null,
+  language: 'en',
+
+  setSession: (sessionId) => set({ sessionId }),
+  setTest: (testId) => set({ testId }),
   setQuestions: (questions) => set({ questions }),
-  setAnswer: (questionId, answer) =>
-    set((state) => ({
-      answers: { ...state.answers, [questionId]: answer },
-    })),
-  nextQuestion: () =>
-    set((state) => ({ currentQuestion: state.currentQuestion + 1 })),
-  setSession: (session) => set({ session }),
-  setTest: (test) => set({ test }),
+  setAnswer: (questionId, answer) => set((state) => ({
+    answers: { ...state.answers, [questionId]: answer }
+  })),
+  nextQuestion: () => set((state) => ({
+    currentQuestionIndex: Math.min(state.currentQuestionIndex + 1, state.questions.length - 1)
+  })),
+  setLoading: (isLoading) => set({ isLoading }),
+  setError: (error) => set({ error }),
+  setLanguage: (language) => set({ language }),
   reset: () => set({
-    currentQuestion: 0,
+    sessionId: null,
+    testId: null,
     questions: [],
+    currentQuestionIndex: 0,
     answers: {},
-    session: null,
-    test: null,
-  }),
+    isLoading: false,
+    error: null
+  })
 }));

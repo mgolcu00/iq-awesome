@@ -1,8 +1,7 @@
 import { initializeApp } from 'firebase/app';
 import { getAnalytics, isSupported } from 'firebase/analytics';
 import { getFirestore } from 'firebase/firestore';
-import { getAuth, onAuthStateChanged } from 'firebase/auth';
-import { useAdminStore } from '../store/adminStore';
+import { getAuth } from 'firebase/auth';
 
 const firebaseConfig = {
   apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
@@ -17,21 +16,13 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 
 // Initialize Analytics only if supported
-const analytics = await isSupported().then(yes => yes ? getAnalytics(app) : null);
-
-export const db = getFirestore(app);
-export const auth = getAuth(app);
-
-// Set up auth state listener
-onAuthStateChanged(auth, (user) => {
-  const { setAuthenticated } = useAdminStore.getState();
-  if (user) {
-    // User is signed in
-    setAuthenticated(true, user.email);
-  } else {
-    // User is signed out
-    setAuthenticated(false, null);
+let analytics = null;
+isSupported().then(yes => {
+  if (yes) {
+    analytics = getAnalytics(app);
   }
 });
 
+export const db = getFirestore(app);
+export const auth = getAuth(app);
 export { analytics };
