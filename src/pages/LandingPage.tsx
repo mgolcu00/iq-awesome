@@ -28,7 +28,14 @@ const LandingPage = () => {
   } = useTestStore();
 
   useEffect(() => {
-    const currentLang = i18n.language as 'en' | 'tr';
+    var currentLang = i18n.language as 'en' | 'tr';
+    if (currentLang.toLowerCase() == "tr-TR".toLowerCase()) {
+      currentLang = "tr"
+    }
+    if (currentLang.toLowerCase() == "en-US".toLowerCase()) {
+      currentLang = "en"
+    }
+    console.log(currentLang);
     setLanguage(currentLang);
   }, [i18n.language, setLanguage]);
 
