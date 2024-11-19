@@ -1,6 +1,6 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
-import { Question } from '../../types';
+import { Question } from '../../data/types';
 // import uuid
 import { v4 as uuidv4 } from 'uuid';
 
