@@ -16,7 +16,6 @@ const Footer = () => {
   const footerLinks = [
     { name: t('common.footer.privacy'), path: '/privacy' },
     { name: t('common.footer.terms'), path: '/terms' },
-    { name: t('common.footer.blog'), path: '/blog' },
   ];
 
   return (
