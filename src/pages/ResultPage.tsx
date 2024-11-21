@@ -194,8 +194,9 @@ const ResultPage = () => {
                     <div className="text-3xl font-bold mb-2">{t('results.premium.price')}</div>
                     <div className="text-sm text-gray-300 mb-6">{t('results.premium.priceNote')}</div>
                     <button
+                      disabled={true}
                       onClick={() => setShowUpgradeModal(true)}
-                      className="w-full bg-indigo-500 hover:bg-indigo-600 text-white px-6 py-3 rounded-lg transition-colors flex items-center justify-center"
+                      className="w-full bg-indigo-500 hover:bg-indigo-600 text-white px-6 py-3 rounded-lg transition-colors flex items-center justify-center disabled:opacity-50"
                     >
                       <Zap className="w-5 h-5 mr-2" />
                       {t('results.premium.cta')}
@@ -217,11 +218,6 @@ const ResultPage = () => {
             </div>
           </div>
         </Card>
-
-        {/* Ad Space */}
-        <div className="bg-white/10 backdrop-blur-sm rounded-xl p-4 text-center text-white/50">
-          {t('results.advertisement.placeholder')}
-        </div>
       </div>
 
       {/* Premium Upgrade Modal */}

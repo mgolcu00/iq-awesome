@@ -110,10 +110,10 @@ export default {
     },
     premium: {
       title: 'Tam Potansiyelinizi Açığa Çıkarın',
-      subtitle: 'Kapsamlı IQ analiziniz ve kişiselleştirilmiş gelişim planınızı alın',
-      price: '9,99 $',
+      subtitle: 'Kapsamlı IQ analiziniz ve kişiselleştirilmiş gelişim reporunuzu alın',
+      price: '12,99 ₺',
       priceNote: 'Tek seferlik ödeme',
-      cta: 'Premium’a Geç',
+      cta: 'Yakında',//'Detaylı Analiz Al',
       emailPlaceholder: 'email@adresiniz.com',
       continueToPayment: 'Ödemeye Devam Et',
       maybeLater: 'Belki Daha Sonra',
@@ -156,6 +156,62 @@ export default {
     },
     advertisement: {
       placeholder: 'Reklam Alanı'
+    },
+
+  },
+  privacyPolicy: {
+    title: 'Gizlilik Politikası',
+    subtitle: 'Kişisel bilgilerinizi korumak ve veri uygulamalarımız hakkında şeffaflığı sağlamak.',
+    sections: {
+      dataCollection: {
+        title: 'Veri Toplama',
+        content: 'IQ test hizmetlerimizi sağlamak için gerekli minimal kişisel bilgileri topluyoruz. Bu, test sonuçları, e-posta adresi, demografik bilgiler ve isteğe bağlı kullanıcı tarafından sağlanan detayları içerir. Tüm veri toplama gönüllülük esasına dayanır ve şeffaftır.'
+      },
+      dataUsage: {
+        title: 'Veri Kullanımı',
+        content: 'Verileriniz yalnızca kişiselleştirilmiş IQ test sonuçları sağlamak, hizmetlerimizi geliştirmek ve açık kullanıcı onayı ile anonim araştırmalar yapmak için kullanılır. Kişisel bilgilerinizi izniniz olmadan asla üçüncü taraflarla paylaşmayız veya satmayız.'
+      },
+      cookies: {
+        title: 'Çerezler ve İzleme',
+        content: 'Oturum bilgilerini sürdürmek ve kullanıcı deneyimini iyileştirmek için zorunlu çerezler kullanıyoruz. Analitik veriler anonimleştirilmiş olup kişisel tanımlayıcıları içermez. Kullanıcılar çerez tercihlerini tarayıcı ayarları üzerinden yönetebilirler.'
+      },
+      dataProtection: {
+        title: 'Veri Koruması',
+        content: 'Kişisel bilgilerinizi yetkisiz erişimden korumak için endüstri standardı şifreleme ve güvenlik önlemleri uyguluyoruz. Tüm veriler sınırlı erişimli ve düzenli güvenlik denetimleri yapılan güvenli sunucularda saklanır.'
+      },
+      userRights: {
+        title: 'Haklarınız',
+        content: 'Hesap ayarlarınız aracılığıyla kişisel bilgilerinize erişme, düzeltme, silme ve onayı geri çekme hakkına sahipsiniz. GDPR standartlarına uygun olarak tam şeffaflık sağlıyoruz.'
+      },
+      lastUpdated: 'Son Güncelleme: 21 Kasım 2024'
+    },
+    contact: {
+      title: 'Bize Ulaşın',
+      content: 'Gizlilik Politikamız hakkında herhangi bir sorunuz varsa, lütfen privacy@iqawesome.com adresinden bize ulaşın',
+      email: 'privacy@iqawesome.com'
+    },
+    legalCompliance: {
+      title: 'Yasal Uyum',
+      content: 'GDPR, CCPA ve diğer geçerli gizlilik yasaları da dahil olmak üzere uluslararası veri koruma yönetmeliklerine uymayı taahhüt ediyoruz.'
+    }
+  },
+  terms: {
+    title: 'Kullanım Şartları',
+    lastUpdated: 'Son Güncelleme: {{date}}',
+    usage: {
+      title: 'Kullanım Koşulları',
+      content: 'Bu şartlar, platformumuzdaki hizmetlerimizin kullanımını düzenler.',
+      details: 'Hizmetimize erişerek, bu şartları kabul etmiş sayılırsınız.'
+    },
+    intellectual: {
+      title: 'Fikri Mülkiyet',
+      content: 'Platformumuzda yer alan tüm içerik fikri mülkiyet haklarıyla korunmaktadır.',
+      details: 'Kullanıcılar, izin almadan içeriğimizi çoğaltamaz veya dağıtamazlar.'
+    },
+    liability: {
+      title: 'Sorumluluk Reddi',
+      content: 'Doğru ve güvenilir hizmetler sunmaya çalışıyoruz.',
+      details: 'Yasal izin verilen azami ölçüde sorumluluk sınırlandırılmıştır.'
     }
   }
 };

@@ -110,10 +110,10 @@ export default {
     },
     premium: {
       title: 'Unlock Your Full Potential',
-      subtitle: 'Get your comprehensive IQ analysis and personalized development plan',
+      subtitle: 'Get your comprehensive IQ analysis and detailed report',
       price: '$9.99',
       priceNote: 'One-time payment',
-      cta: 'Upgrade to Premium',
+      cta: 'Sold Out',//'Get Premium Analysis',
       emailPlaceholder: 'your@email.com',
       continueToPayment: 'Continue to Payment',
       maybeLater: 'Maybe Later',
@@ -156,6 +156,61 @@ export default {
     },
     advertisement: {
       placeholder: 'Advertisement Space'
+    }
+  },
+  privacyPolicy: {
+    title: 'Privacy Policy',
+    subtitle: 'Protecting your personal information and ensuring transparency about our data practices.',
+    sections: {
+      dataCollection: {
+        title: 'Data Collection',
+        content: 'We collect minimal personal information necessary to provide our IQ testing services. This includes test results, email address, demographic information, and optional user-provided details. All data collection is voluntary and transparent.'
+      },
+      dataUsage: {
+        title: 'Data Usage',
+        content: 'Your data is used solely for providing personalized IQ test results, improving our services, and conducting anonymous research with explicit user consent. We never sell or share personal information with third parties without your permission.'
+      },
+      cookies: {
+        title: 'Cookies and Tracking',
+        content: 'We use essential cookies to maintain session information and improve user experience. Analytics are anonymized and do not track personal identifiers. Users can manage cookie preferences through their browser settings.'
+      },
+      dataProtection: {
+        title: 'Data Protection',
+        content: 'We implement industry-standard encryption and security measures to protect your personal information from unauthorized access. All data is stored securely with restricted access and regular security audits.'
+      },
+      userRights: {
+        title: 'Your Rights',
+        content: 'You have the right to access, correct, delete your personal information, and withdraw consent at any time through your account settings. We comply with GDPR and provide full transparency in data handling.'
+      },
+      lastUpdated: 'Last Updated: November 21, 2024'
+    },
+    contact: {
+      title: 'Contact Us',
+      content: 'If you have any questions about our Privacy Policy, please contact us at privacy@iqawesome.com',
+      email: 'privacy@iqawesome.com'
+    },
+    legalCompliance: {
+      title: 'Legal Compliance',
+      content: 'We are committed to complying with international data protection regulations, including GDPR, CCPA, and other applicable privacy laws.'
+    }
+  },
+  terms: {
+    title: 'Terms of Service',
+    lastUpdated: 'Last Updated: {{date}}',
+    usage: {
+      title: 'Usage Terms',
+      content: 'These terms govern your use of our services and platform.',
+      details: 'By accessing our service, you agree to comply with these terms.'
+    },
+    intellectual: {
+      title: 'Intellectual Property',
+      content: 'All content on our platform is protected by intellectual property rights.',
+      details: 'Users may not reproduce or distribute our proprietary content without permission.'
+    },
+    liability: {
+      title: 'Liability Disclaimer',
+      content: 'We strive to provide accurate and reliable services.',
+      details: 'Our liability is limited to the maximum extent permitted by law.'
     }
   }
 };

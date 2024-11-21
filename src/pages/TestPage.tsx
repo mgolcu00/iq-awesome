@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { useTestStore } from '../store/testStore';
@@ -154,10 +154,6 @@ const TestPage = () => {
           </div>
         </Card>
 
-        {/* Ad Space */}
-        <div className="mt-8 p-4 bg-gray-100 dark:bg-gray-800 rounded-xl text-center text-gray-400">
-          Advertisement Space
-        </div>
       </div>
     </div>
   );

@@ -235,15 +235,6 @@ const LandingPage = () => {
           </Card>
         </div>
       </div>
-
-      {/* Ad Space */}
-      <div className="bg-gradient-to-r from-gray-100 to-gray-50 dark:from-gray-800 dark:to-gray-900 p-4">
-        <div className="container mx-auto">
-          <div className="rounded-xl border border-gray-200 dark:border-gray-700 p-4 text-center text-gray-400 dark:text-gray-500 bg-white/50 dark:bg-gray-800/50 backdrop-blur-sm">
-            {t('landing.advertisement.placeholder')}
-          </div>
-        </div>
-      </div>
     </div>
   );
 };

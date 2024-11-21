@@ -9,6 +9,7 @@ import ResultPage from './pages/ResultPage';
 import PrivacyPolicy from './pages/common/PrivacyPolicy';
 import TermsOfService from './pages/common/TermsOfService';
 import AdminDashboard from './pages/admin/Dashboard';
+import Blog from './pages/Blog';
 import AdminQuestions from './pages/admin/Questions';
 import AdminUsers from './pages/admin/Users';
 import { ThemeProvider } from './components/ui/ThemeProvider';
@@ -25,6 +26,7 @@ function App() {
             <Route path="result" element={<ResultPage />} />
             <Route path="privacy" element={<PrivacyPolicy />} />
             <Route path="terms" element={<TermsOfService />} />
+            <Route path="/blog" element={<Blog />} />
             <Route path="/admin/login" element={<LoginPage />} />
             <Route path="/admin" element={<AdminLayout />}>
               <Route path="dashboard" element={<AdminDashboard />} />
